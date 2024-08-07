@@ -116,8 +116,8 @@ class AIModel(nn.Module):
         
         visit_enc = torch.cat([diag_enc, proc_enc], dim=-1) # [batch_size, 2*emb]          
         substruct_information = self.substruct_encoder(substruct_data['substruct_data'])# torch.Size([491, 112])
-        embedding1 = self.crosssAtte1(substruct_information.unsqueeze(dim=0).repeat(batch_size, 1, 1),diag_emb,diag_emb)[0] #torch.Size([batch_size, 491, 112])
-        embedding2 = self.crosssAtte2(substruct_information.unsqueeze(dim=0).repeat(batch_size, 1, 1),proc_emb,proc_emb)[0]
+        embedding1 = self.crosssAtte1(substruct_information.unsqueeze(dim=0).repeat(batch_size, 1, 1),diagnose_embdding,diagnose_embdding)[0] #torch.Size([batch_size, 491, 112])
+        embedding2 = self.crosssAtte2(substruct_information.unsqueeze(dim=0).repeat(batch_size, 1, 1),procedure_embedding,procedure_embedding)[0]
         diag_enc_cross = torch.sum(embedding1, dim=1)
         proc_enc_cross = torch.sum(embedding2, dim=1)
         visit_enc_cross = torch.cat([diag_enc_cross, proc_enc_cross], dim=-1) # [batch_size, 2*emb]
